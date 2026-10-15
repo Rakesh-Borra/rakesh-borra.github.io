@@ -13,12 +13,13 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-accent text-white hover:brightness-110 shadow-[0_0_0_1px_rgba(255,255,255,0.06)_inset]",
+    "bg-accent text-white shadow-[0_8px_24px_-12px_var(--accent-glow)] hover:brightness-110 hover:-translate-y-px",
   secondary:
-    "bg-accent-soft text-accent hover:bg-accent/20 border border-accent/20",
-  ghost: "text-muted hover:text-foreground hover:bg-foreground/5",
+    "bg-accent-soft text-accent hover:bg-accent/20 border border-accent/25",
+  ghost:
+    "text-muted hover:text-foreground hover:bg-foreground/[0.05] border border-transparent hover:border-border",
   outline:
-    "border border-border bg-transparent text-foreground hover:bg-card-hover hover:border-foreground/20",
+    "border border-border bg-background-elevated/40 text-foreground backdrop-blur-md hover:bg-card-hover hover:border-foreground/20 hover:-translate-y-px",
 };
 
 const sizes: Record<Size, string> = {
@@ -37,7 +38,7 @@ export function Button({
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-ring disabled:opacity-50 disabled:pointer-events-none",
+        "inline-flex items-center justify-center rounded-xl font-medium transition-[color,background-color,border-color,transform,box-shadow,filter] duration-200 focus-ring disabled:opacity-50 disabled:pointer-events-none",
         variants[variant],
         sizes[size],
         className,
@@ -72,7 +73,7 @@ export function LinkButton({
     <a
       href={href}
       className={cn(
-        "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-ring",
+        "inline-flex items-center justify-center rounded-xl font-medium transition-[color,background-color,border-color,transform,box-shadow,filter] duration-200 focus-ring",
         variants[variant],
         sizes[size],
         className,

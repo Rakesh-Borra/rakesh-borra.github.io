@@ -19,7 +19,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     return (
       <span
         className={cn(
-          "inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border",
+          "inline-flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-background-elevated/50",
           className,
         )}
         aria-hidden
@@ -34,7 +34,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className={cn(
-        "inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:bg-foreground/5 hover:text-foreground focus-ring",
+        "inline-flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-background-elevated/50 text-muted backdrop-blur-md transition-colors hover:bg-foreground/5 hover:text-foreground focus-ring",
         className,
       )}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}

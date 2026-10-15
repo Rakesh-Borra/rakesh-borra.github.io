@@ -73,10 +73,10 @@ export function Projects() {
               aria-selected={filter === item}
               onClick={() => setFilter(item)}
               className={cn(
-                "rounded-lg border px-3.5 py-2 text-sm transition-colors focus-ring",
+                "rounded-full border px-3.5 py-2 text-sm transition-colors focus-ring backdrop-blur-sm",
                 filter === item
-                  ? "border-accent/40 bg-accent-soft text-foreground"
-                  : "border-border text-muted hover:border-foreground/20 hover:text-foreground",
+                  ? "border-accent/40 bg-accent-soft text-foreground shadow-[0_0_0_1px_var(--accent-soft)]"
+                  : "border-border bg-background-elevated/30 text-muted hover:border-foreground/20 hover:text-foreground",
               )}
             >
               {item}

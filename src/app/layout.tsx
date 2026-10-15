@@ -1,6 +1,7 @@
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
+import { GeometricBackground } from "@/components/ui/GeometricBackground";
 import { siteConfig } from "@/data/site";
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Outfit, Source_Sans_3 } from "next/font/google";
@@ -65,8 +66,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f6f7f9" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0c0f" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f5f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#090a0d" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -79,8 +80,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
       className={`${sourceSans.variable} ${outfit.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background font-sans text-foreground">
+      <body className="relative min-h-full flex flex-col bg-background font-sans text-foreground">
         <ThemeProvider>
+          <GeometricBackground />
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white"
@@ -88,10 +90,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             Skip to content
           </a>
           <Navbar />
-          <main id="main" className="flex-1">
+          <main id="main" className="relative z-10 flex-1">
             {children}
           </main>
-          <Footer />
+          <div className="relative z-10">
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>

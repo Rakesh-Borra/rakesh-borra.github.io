@@ -11,7 +11,17 @@ export const siteConfig = {
   url: "https://rakesh-borra.github.io",
   social: {
     github: "https://github.com/Rakesh-Borra",
-    linkedin: "https://www.linkedin.com/in/rakesh-borra",
+    linkedin: "https://www.linkedin.com/in/rakesh-borra-9274511b2/",
+  },
+  /**
+   * Hero portrait. Photo lives at public/images/profile/rakesh-borra.webp
+   * Set hasPhoto to false to show the placeholder instead.
+   */
+  profile: {
+    hasPhoto: true,
+    imageSrc: "/images/profile/rakesh-borra.webp",
+    placeholderSrc: "/images/profile/placeholder.svg",
+    alt: "Professional photograph of Rakesh Borra",
   },
   education: {
     graduate: {

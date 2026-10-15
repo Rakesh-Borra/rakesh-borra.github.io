@@ -22,7 +22,7 @@ export function Experience() {
                   className="absolute -left-[1.9rem] top-1.5 h-3 w-3 rounded-full border-2 border-accent bg-background sm:-left-[2.4rem]"
                   aria-hidden
                 />
-                <div className="rounded-2xl border border-border bg-card p-6">
+                <div className="glass-panel rounded-2xl p-6">
                   <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                     <div>
                       <h3 className="font-display text-xl font-semibold text-foreground">

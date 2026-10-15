@@ -1,43 +1,50 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f6f7f9;
-  --background-elevated: #ffffff;
-  --foreground: #111318;
-  --muted: #5c6570;
-  --muted-foreground: #6b7280;
-  --border: #e2e6eb;
+  --background: #f4f5f7;
+  --background-elevated: rgba(255, 255, 255, 0.78);
+  --foreground: #101218;
+  --muted: #5a6370;
+  --muted-foreground: #6b7380;
+  --border: rgba(16, 18, 24, 0.1);
   --accent: #2563eb;
   --accent-soft: rgba(37, 99, 235, 0.12);
-  --accent-glow: rgba(37, 99, 235, 0.2);
-  --card: #ffffff;
-  --card-hover: #f8fafc;
+  --accent-glow: rgba(37, 99, 235, 0.18);
+  --card: rgba(255, 255, 255, 0.72);
+  --card-hover: rgba(255, 255, 255, 0.9);
   --ring: #2563eb;
   --success: #059669;
   --warning: #d97706;
-  --nav-bg: rgba(246, 247, 249, 0.8);
-  --hero-grid: rgba(17, 19, 24, 0.04);
+  --nav-bg: rgba(244, 245, 247, 0.72);
   --hero-glow: rgba(37, 99, 235, 0.08);
+  --portrait-glow: rgba(37, 99, 235, 0.22);
+  --geo-stroke: rgba(16, 18, 24, 0.12);
+  --geo-glow: rgba(37, 99, 235, 0.06);
+  --glass-blur: 16px;
+  --glass-shadow: 0 10px 40px -24px rgba(16, 18, 24, 0.35);
 }
 
 .dark {
-  --background: #0b0c0f;
-  --background-elevated: #12141a;
+  --background: #090a0d;
+  --background-elevated: rgba(18, 20, 26, 0.72);
   --foreground: #f3f4f6;
-  --muted: #9ca3af;
-  --muted-foreground: #8b939e;
-  --border: #23262e;
-  --accent: #5b8def;
-  --accent-soft: rgba(91, 141, 239, 0.14);
-  --accent-glow: rgba(91, 141, 239, 0.25);
-  --card: #12141a;
-  --card-hover: #181b23;
-  --ring: #5b8def;
+  --muted: #9aa3af;
+  --muted-foreground: #87909c;
+  --border: rgba(243, 244, 246, 0.1);
+  --accent: #6b95f0;
+  --accent-soft: rgba(107, 149, 240, 0.14);
+  --accent-glow: rgba(107, 149, 240, 0.22);
+  --card: rgba(18, 20, 26, 0.55);
+  --card-hover: rgba(24, 27, 35, 0.72);
+  --ring: #6b95f0;
   --success: #34d399;
   --warning: #fbbf24;
-  --nav-bg: rgba(11, 12, 15, 0.75);
-  --hero-grid: rgba(243, 244, 246, 0.035);
-  --hero-glow: rgba(91, 141, 239, 0.12);
+  --nav-bg: rgba(9, 10, 13, 0.7);
+  --hero-glow: rgba(107, 149, 240, 0.12);
+  --portrait-glow: rgba(255, 255, 255, 0.12);
+  --geo-stroke: rgba(255, 255, 255, 0.12);
+  --geo-glow: rgba(255, 255, 255, 0.05);
+  --glass-shadow: 0 18px 50px -28px rgba(0, 0, 0, 0.7);
 }
 
 @theme inline {
@@ -77,6 +84,14 @@ html {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
+  .geo-layer,
+  .geo-shape,
+  .geo-glow,
+  .geo-dot,
+  .nav-shell::before {
+    animation: none !important;
+  }
 }
 
 body {
@@ -104,19 +119,29 @@ body {
   }
 }
 
-.hero-grid {
-  background-image:
-    linear-gradient(to right, var(--hero-grid) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--hero-grid) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 20%, transparent 75%);
+.glass-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-shadow);
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.glass-panel:hover {
+  background: var(--card-hover);
+  border-color: color-mix(in srgb, var(--foreground) 16%, transparent);
 }
 
 .hero-glow {
   background: radial-gradient(
-    ellipse 50% 40% at 50% 0%,
+    ellipse 55% 45% at 50% 0%,
     var(--hero-glow),
-    transparent 70%
+    transparent 72%
   );
 }
 
@@ -127,4 +152,208 @@ body {
 .focus-ring:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 3px;
+}
+
+/* --- Geometric background --- */
+.geo-field {
+  color: var(--geo-stroke);
+}
+
+.geo-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  background: var(--geo-glow);
+  animation: geo-pulse 14s ease-in-out infinite;
+}
+
+.geo-glow-a {
+  top: 8%;
+  left: 12%;
+  width: 22rem;
+  height: 22rem;
+}
+
+.geo-glow-b {
+  right: 8%;
+  bottom: 12%;
+  width: 18rem;
+  height: 18rem;
+  animation-delay: -6s;
+}
+
+.geo-opacity-a {
+  opacity: 0.09;
+}
+
+.geo-opacity-b {
+  opacity: 0.12;
+}
+
+.geo-opacity-c {
+  opacity: 0.15;
+}
+
+.geo-opacity-fill {
+  opacity: 0.045;
+}
+
+.geo-glow-c {
+  top: 42%;
+  left: 48%;
+  width: 14rem;
+  height: 14rem;
+  animation-delay: -9s;
+}
+
+.geo-layer-slow {
+  animation: geo-drift 48s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+
+.geo-layer-mid {
+  animation: geo-drift 36s ease-in-out infinite reverse;
+  transform-origin: 40% 60%;
+}
+
+.geo-layer-fast {
+  animation: geo-drift 28s ease-in-out infinite;
+  transform-origin: 60% 40%;
+}
+
+.geo-rotate-a,
+.geo-rotate-b {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.geo-rotate-a {
+  animation: geo-spin 70s linear infinite;
+}
+
+.geo-rotate-b {
+  animation: geo-spin 95s linear infinite reverse;
+}
+
+.geo-float-a {
+  animation: geo-float 11s ease-in-out infinite;
+}
+
+.geo-float-b {
+  animation: geo-float 15s ease-in-out infinite reverse;
+}
+
+@keyframes geo-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(12px, -18px, 0);
+  }
+}
+
+@keyframes geo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes geo-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes geo-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
+/* --- Animated glass navigation shell --- */
+.nav-shell {
+  position: relative;
+  border-radius: 9999px;
+  padding: 1px;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.28),
+    rgba(255, 255, 255, 0.08)
+  );
+  box-shadow: 0 0 24px -12px rgba(255, 255, 255, 0.35);
+}
+
+.nav-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 35%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 255, 255, 0.05) 65%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  animation: nav-border-shine 7.5s linear infinite;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.nav-shell-inner {
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--background-elevated) 82%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+}
+
+.nav-link-active {
+  background: var(--accent-soft);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent),
+    0 0 18px -6px var(--accent-glow);
+}
+
+@keyframes nav-border-shine {
+  0% {
+    background-position: 160% 0;
+  }
+  100% {
+    background-position: -60% 0;
+  }
+}
+
+.dark .nav-shell {
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.05)
+  );
 }

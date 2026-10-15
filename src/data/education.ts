@@ -5,6 +5,7 @@ export type EducationItem = {
   location: string;
   period: string;
   details?: string[];
+  achievements?: string[];
 };
 
 export const education: EducationItem[] = [
@@ -24,7 +25,7 @@ export const education: EducationItem[] = [
     school: "Indian Institute of Information Technology Sri City",
     location: "India",
     period: "Completed",
-    // Add graduation year, GPA, or coursework when you want them public
     details: [],
+    achievements: ["JEE Main — 96.61 Percentile"],
   },
 ];

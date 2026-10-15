@@ -12,7 +12,8 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
   return (
     <article
       className={cn(
-        "group flex h-full flex-col rounded-2xl border border-border bg-card p-6 transition-colors hover:bg-card-hover sm:p-7",
+        "group glass-panel flex h-full flex-col rounded-2xl p-6 sm:p-7",
+        "hover:-translate-y-1",
         featured && "lg:p-8",
       )}
     >
@@ -44,7 +45,7 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
 
       <h3
         className={cn(
-          "mt-4 font-display font-semibold tracking-tight text-foreground",
+          "mt-4 font-display font-semibold tracking-tight text-foreground transition-colors group-hover:text-accent",
           featured ? "text-2xl" : "text-xl",
         )}
       >
@@ -78,7 +79,7 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
         {project.technologies.map((tech) => (
           <span
             key={tech}
-            className="rounded-md bg-foreground/[0.04] px-2.5 py-1 text-xs text-muted"
+            className="rounded-md border border-border/80 bg-background/30 px-2.5 py-1 text-xs text-muted"
           >
             {tech}
           </span>
@@ -91,7 +92,7 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-colors hover:text-accent focus-ring rounded-md"
+            className="inline-flex items-center gap-1.5 rounded-md text-sm font-medium text-foreground transition-colors hover:text-accent focus-ring"
           >
             <GitHubIcon className="h-4 w-4" />
             {project.githubLabel ?? "GitHub"}
@@ -107,7 +108,7 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
             href={project.contributionsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-colors hover:text-accent focus-ring rounded-md"
+            className="inline-flex items-center gap-1.5 rounded-md text-sm font-medium text-foreground transition-colors hover:text-accent focus-ring"
           >
             My Contributions
             <ArrowUpRight className="h-3.5 w-3.5 opacity-60" />
@@ -118,7 +119,7 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-colors hover:text-accent focus-ring rounded-md"
+            className="inline-flex items-center gap-1.5 rounded-md text-sm font-medium text-foreground transition-colors hover:text-accent focus-ring"
           >
             Live demo
             <ArrowUpRight className="h-3.5 w-3.5 opacity-60" />

@@ -19,7 +19,7 @@ export function Resume() {
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {resumes.map((resume, index) => (
             <Reveal key={resume.id} delay={index * 0.05}>
-              <article className="flex h-full flex-col rounded-2xl border border-border bg-card p-6">
+              <article className="glass-panel flex h-full flex-col rounded-2xl p-6 hover:-translate-y-0.5">
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent-soft text-accent">
                   <FileText className="h-5 w-5" />
                 </div>

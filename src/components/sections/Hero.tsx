@@ -1,6 +1,7 @@
 "use client";
 
 import { LinkButton } from "@/components/ui/Button";
+import { ProfilePortrait } from "@/components/ui/ProfilePortrait";
 import { siteConfig } from "@/data/site";
 import { resumes } from "@/data/resumes";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/SocialIcons";
@@ -10,6 +11,7 @@ import { motion, useReducedMotion } from "motion/react";
 export function Hero() {
   const prefersReducedMotion = useReducedMotion();
   const primaryResume = resumes.find((r) => r.id === "swe-backend");
+  const ease = [0.22, 1, 0.36, 1] as const;
 
   return (
     <section
@@ -17,88 +19,107 @@ export function Hero() {
       className="relative flex min-h-[100svh] items-center overflow-hidden pt-16"
     >
       <div className="pointer-events-none absolute inset-0 hero-glow" aria-hidden />
-      <div className="pointer-events-none absolute inset-0 hero-grid" aria-hidden />
-
-      {!prefersReducedMotion ? (
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute -left-24 top-28 h-64 w-64 rounded-full bg-accent/10 blur-3xl"
-          animate={{ opacity: [0.35, 0.55, 0.35], scale: [1, 1.08, 1] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-      ) : null}
 
       <div className="section-container relative z-10 py-20 sm:py-28">
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-            Open to entry-level software engineering roles
-          </p>
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.15fr)_auto] lg:gap-16 xl:gap-20">
+          <div>
+            <motion.p
+              className="mb-5 text-sm font-medium tracking-wide text-muted sm:text-base"
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease }}
+            >
+              Welcome to my portfolio.
+            </motion.p>
 
-          <h1 className="font-display text-4xl font-semibold tracking-tight text-foreground sm:text-5xl md:text-6xl">
-            {siteConfig.name}
-          </h1>
+            <motion.h1
+              className="font-display text-4xl font-semibold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-[3.65rem] lg:leading-[1.06]"
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.06, ease }}
+            >
+              Hi, I&apos;m {siteConfig.name}.
+            </motion.h1>
 
-          <p className="mt-4 max-w-2xl font-display text-lg text-muted sm:text-xl md:text-2xl">
-            {siteConfig.headline}
-          </p>
+            <motion.p
+              className="mt-4 max-w-2xl font-display text-lg font-medium tracking-tight text-muted sm:text-xl md:text-2xl"
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.12, ease }}
+            >
+              {siteConfig.headline}
+            </motion.p>
 
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-            MS Computer Science student at UMass Boston building scalable
-            applications, reliable backend systems, and practical AI-powered
-            solutions. Focused on clean architecture, thoughtful APIs, and
-            software that holds up in real use.
-          </p>
+            <motion.p
+              className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg"
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.18, ease }}
+            >
+              MS Computer Science student at UMass Boston building scalable
+              applications, reliable backend systems, and practical AI-powered
+              solutions.
+            </motion.p>
 
-          <div className="mt-10 flex flex-wrap gap-3">
-            <LinkButton href="#projects" variant="primary" size="lg">
-              View Projects
-            </LinkButton>
-            {primaryResume?.available ? (
+            <motion.div
+              className="mt-10 flex flex-wrap gap-3"
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.24, ease }}
+            >
+              <LinkButton href="#projects" variant="primary" size="lg">
+                View Projects
+              </LinkButton>
+              {primaryResume?.available ? (
+                <LinkButton
+                  href={`/resumes/${primaryResume.filename}`}
+                  variant="outline"
+                  size="lg"
+                  download={primaryResume.filename}
+                >
+                  Download Resume
+                </LinkButton>
+              ) : (
+                <LinkButton href="#resume" variant="outline" size="lg">
+                  Download Resume
+                </LinkButton>
+              )}
               <LinkButton
-                href={`/resumes/${primaryResume.filename}`}
-                variant="outline"
+                href={siteConfig.social.github}
+                variant="ghost"
                 size="lg"
-                download={primaryResume.filename}
+                external
               >
-                Download Resume
+                <GitHubIcon className="h-4 w-4" />
+                GitHub
               </LinkButton>
-            ) : (
-              <LinkButton href="#resume" variant="outline" size="lg">
-                Download Resume
+              <LinkButton
+                href={siteConfig.social.linkedin}
+                variant="ghost"
+                size="lg"
+                external
+              >
+                <LinkedInIcon className="h-4 w-4" />
+                LinkedIn
               </LinkButton>
-            )}
-            <LinkButton
-              href={siteConfig.social.github}
-              variant="ghost"
-              size="lg"
-              external
+            </motion.div>
+
+            <motion.a
+              href="#about"
+              className="mt-14 inline-flex items-center gap-2 rounded-md text-sm text-muted transition-colors hover:text-foreground focus-ring"
+              initial={prefersReducedMotion ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.45, delay: 0.32 }}
             >
-              <GitHubIcon className="h-4 w-4" />
-              GitHub
-            </LinkButton>
-            <LinkButton
-              href={siteConfig.social.linkedin}
-              variant="ghost"
-              size="lg"
-              external
-            >
-              <LinkedInIcon className="h-4 w-4" />
-              LinkedIn
-            </LinkButton>
+              Learn more
+              <ArrowDown className="h-4 w-4" />
+            </motion.a>
           </div>
 
-          <a
-            href="#about"
-            className="mt-16 inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-foreground focus-ring rounded-md"
-          >
-            Learn more
-            <ArrowDown className="h-4 w-4" />
-          </a>
-        </motion.div>
+          <div className="flex justify-center lg:justify-end">
+            <ProfilePortrait />
+          </div>
+        </div>
       </div>
     </section>
   );

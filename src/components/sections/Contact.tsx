@@ -15,7 +15,7 @@ const contactItems = [
   },
   {
     label: "LinkedIn",
-    value: "linkedin.com/in/rakesh-borra",
+    value: "linkedin.com/in/rakesh-borra-9274511b2",
     href: siteConfig.social.linkedin,
     icon: LinkedInIcon,
     external: true,
@@ -72,7 +72,7 @@ export function Contact() {
                 return (
                   <div
                     key={item.label}
-                    className="rounded-2xl border border-border bg-card p-6"
+                    className="glass-panel rounded-2xl p-6"
                   >
                     {content}
                   </div>
@@ -83,7 +83,7 @@ export function Contact() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="rounded-2xl border border-border bg-card p-6 transition-colors hover:bg-card-hover focus-ring"
+                  className="glass-panel rounded-2xl p-6 hover:-translate-y-0.5 focus-ring"
                   {...(item.external
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}

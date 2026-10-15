@@ -52,14 +52,14 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 border-b transition-colors",
+        "fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,backdrop-filter,box-shadow] duration-300",
         scrolled || open
-          ? "border-border bg-nav-bg backdrop-blur-xl"
+          ? "border-border/80 bg-nav-bg shadow-[0_8px_30px_-18px_rgba(0,0,0,0.45)] backdrop-blur-xl"
           : "border-transparent bg-transparent",
       )}
     >
       <nav
-        className="section-container flex h-16 items-center justify-between"
+        className="section-container flex h-16 items-center justify-between md:h-[4.25rem]"
         aria-label="Primary"
       >
         <a
@@ -70,29 +70,36 @@ export function Navbar() {
           {siteConfig.name}
         </a>
 
-        <ul className="hidden items-center gap-1 lg:flex">
-          {siteConfig.nav.map((item) => (
-            <li key={item.href}>
-              <a
-                href={item.href}
-                className={cn(
-                  "rounded-md px-3 py-2 text-sm transition-colors focus-ring",
-                  active === item.href
-                    ? "text-foreground"
-                    : "text-muted hover:text-foreground",
-                )}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="nav-shell hidden lg:block">
+          <div className="nav-shell-inner">
+            <ul className="flex items-center gap-0.5 p-1">
+              {siteConfig.nav.map((item) => {
+                const isActive = active === item.href;
+                return (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      className={cn(
+                        "relative rounded-full px-3.5 py-1.5 text-sm transition-colors focus-ring",
+                        isActive
+                          ? "nav-link-active text-foreground"
+                          : "text-muted hover:bg-white/5 hover:text-foreground dark:hover:bg-white/5",
+                      )}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <button
             type="button"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-foreground focus-ring lg:hidden"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-background-elevated/50 text-foreground backdrop-blur-md focus-ring lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -106,7 +113,7 @@ export function Navbar() {
       <div
         id="mobile-nav"
         className={cn(
-          "border-t border-border bg-background lg:hidden",
+          "border-t border-border bg-nav-bg backdrop-blur-xl lg:hidden",
           open ? "block" : "hidden",
         )}
       >

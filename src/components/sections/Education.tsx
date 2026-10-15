@@ -18,7 +18,7 @@ export function Education() {
         <div className="mt-12 grid gap-5 md:grid-cols-2">
           {education.map((item, index) => (
             <Reveal key={item.id} delay={index * 0.06}>
-              <article className="h-full rounded-2xl border border-border bg-card p-6">
+              <article className="glass-panel h-full rounded-2xl p-6 hover:-translate-y-0.5">
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent-soft text-accent">
                   <GraduationCap className="h-5 w-5" />
                 </div>
@@ -37,6 +37,18 @@ export function Education() {
                         className="text-sm leading-relaxed text-muted"
                       >
                         {detail}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+                {item.achievements && item.achievements.length > 0 ? (
+                  <ul className="mt-5 flex flex-wrap gap-2">
+                    {item.achievements.map((achievement) => (
+                      <li
+                        key={achievement}
+                        className="rounded-full border border-border/80 bg-background/35 px-3 py-1 text-xs font-medium text-muted"
+                      >
+                        {achievement}
                       </li>
                     ))}
                   </ul>
