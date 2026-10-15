@@ -44,13 +44,22 @@ All personal content lives in `src/data/`:
 
 Resume PDFs are stored in `public/resumes/`.
 
-## Deploy to Vercel
+## Deploy to GitHub Pages
 
-1. Push this repository to GitHub.
-2. Go to [vercel.com/new](https://vercel.com/new) and import the repo.
-3. Framework preset: **Next.js** (auto-detected).
-4. Leave build settings as defaults (`npm run build`).
-5. Update `siteConfig.url` in `src/data/site.ts` to your production domain.
-6. Deploy.
+This project uses Next.js static export (`output: "export"`) and deploys via GitHub Actions.
 
-Do not commit secrets. This site is fully static/frontend and needs no environment variables for basic deployment.
+1. Push to the `main` branch of [rakesh-borra.github.io](https://github.com/Rakesh-Borra/rakesh-borra.github.io).
+2. In the repository on GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+3. Allow the **Deploy Next.js site to Pages** workflow to run.
+4. Site URL: [https://rakesh-borra.github.io/](https://rakesh-borra.github.io/)
+
+The workflow builds `./out` and deploys that artifact. Generated files are not committed to `main`.
+
+Preview the static export locally:
+
+```bash
+npm run build
+npx --yes serve out
+```
+
+Do not commit secrets. This site is fully static and needs no environment variables for basic deployment.

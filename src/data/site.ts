@@ -8,7 +8,7 @@ export const siteConfig = {
   locationShort: "Boston, MA",
   email: "borrarakesh369@gmail.com",
   phone: "+1 617-602-3006",
-  url: "https://rakeshborra.dev",
+  url: "https://rakesh-borra.github.io",
   social: {
     github: "https://github.com/Rakesh-Borra",
     linkedin: "https://www.linkedin.com/in/rakesh-borra",

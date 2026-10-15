@@ -1,9 +1,14 @@
 import type { NextConfig } from "next";
 
+/**
+ * Static export for GitHub Pages (user site: https://rakesh-borra.github.io/).
+ * No basePath — content is served from the site root.
+ */
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  output: "export",
+  images: {
+    unoptimized: true,
+  },
   turbopack: {
     rules: {
       "*.css": {
